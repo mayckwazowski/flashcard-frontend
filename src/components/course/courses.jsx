@@ -1,22 +1,34 @@
 import React, {useState, useEffect } from "react";
-import { Row } from "react-materialize";
+import { Button, Icon, Row } from "react-materialize";
+import { Link } from "react-router-dom";
+import ColecaoService from "../../services/colecao.service";
 import Course from "./course";
 
 const Courses = () => {
+    let page = 1;
     const [colecao, setColecao] = useState([{
         colecaoId : 0,
+        nome: '',
         descricao: ''
     }]);
-    useEffect(() => {
-        fetch(`https://flashcard-api-mayck.herokuapp.com/api/colecoes`)
-        .then( res => res.json() )
-        .then( colecao => setColecao( colecao ))
-        .catch( error => console.log(error) )
-    }, 1);
+    useEffect(() =>  ColecaoService.getAll( setColecao ), page);
     return(
-    <Row>
-        {colecao.map( item => <Course colecaoId={item.colecaoId} descricao={item.descricao} />)}
-    </Row>
+        <>
+            <Row>
+                {colecao.map( item => <Course colecaoId={item.colecaoId} nome={item.nome} descricao={item.descricao} />)}
+            </Row>
+            <Link to='/create/course'>
+                <Button
+                    className="red"
+                    floating
+                    icon={<Icon>add</Icon>}
+                    large
+                    node="button"
+                    waves="light"
+                    onClick=""
+                    />
+            </Link>
+        </>
     )
 }
 
