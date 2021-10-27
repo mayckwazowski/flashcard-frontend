@@ -3,7 +3,7 @@ import { Card, Col, Icon, CardTitle } from "react-materialize";
 
 const Course = ( props ) => (
     <Col
-        l={4}
+        l={3}
         m={6}
         s={12}
     >

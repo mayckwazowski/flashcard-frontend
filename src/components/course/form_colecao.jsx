@@ -20,51 +20,64 @@ const SalvarButton = () => (
 
 );
 
-const CancelarButton = () => {
-    let history = useHistory();
-    const handleClick = () => {
-        history.push( Routers.COURSE );
-    }
-    return(            
-        <Button
-            node="button"
-            style={{
-            marginRight: '5px'
-            }}
-            waves="light"
-            onClick={handleClick}
-        >
-            Cancelar
-        </Button>
-    )
-}
+
+const CancelarButton = ( props ) => (
+    <Button
+        node="button"
+        style={{
+        marginRight: '5px'
+        }}
+        waves="light"
+        onClick={props.handleClick}
+    >
+        Cancelar
+    </Button>
+)
 
 const FormColecao = () => {
-    let history = useHistory();
-    const [nome, setNome] = useState('');
+    const history = useHistory();
+    const goBack = () =>{
+        history.push( Routers.COURSE );
+    }
+    const [colecaoDados, setColecaoDados] = useState({
+        nome: '',
+        descricao: '',
+        publico: false
+    });
+
+    const onChangeField = e => {
+        const value = e.target.id === "publico" ? e.target.checked : e.target.value;
+        setColecaoDados( { ...colecaoDados, [e.target.id]: value } )
+    }
 
     const handleSubmit = (e) => {
-        alert('Um nome foi enviado: ' + nome );
-        //ColecaoService.create( {nome, descricao, publico} );
-        //history.push( Routers.COURSE );
+        ColecaoService.create( colecaoDados )
+        .then( goBack );
         e.preventDefault();
     }
 
     return (
     <form onSubmit={handleSubmit}>
-        <TextInput id="nome" label="Nome" value={nome} onChange={e => setNome( e.target.value ) }/>
+        <TextInput 
+            id="nome" 
+            label="Nome" 
+            value={colecaoDados.nome} 
+            onChange={onChangeField}/>
         <Textarea
                 id="descricao"
                 placeholder="descricao"
+                value={colecaoDados.descricao}
+                onChange={onChangeField}
                 />
         <Switch
             id="publico"
             offLabel="Privado"
-            onChange={function noRefCheck(){}}
+            value={colecaoDados.publico}
+            onChange={ e => setColecaoDados( { ...colecaoDados, publico: e.target.checked} )}
             onLabel="Público"
             />
         <p>
-            <CancelarButton />
+            <CancelarButton handleClick={goBack} />
             <SalvarButton />
         </p>
     </form>
