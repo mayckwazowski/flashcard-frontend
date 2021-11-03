@@ -64,11 +64,11 @@ const FormColecao = () => {
             value={colecaoDados.nome} 
             onChange={onChangeField}/>
         <Textarea
-                id="descricao"
-                placeholder="descricao"
-                value={colecaoDados.descricao}
-                onChange={onChangeField}
-                />
+            id="descricao"
+            label="descricao"
+            value={colecaoDados.descricao}
+            onChange={onChangeField}
+            />
         <Switch
             id="publico"
             offLabel="Privado"
