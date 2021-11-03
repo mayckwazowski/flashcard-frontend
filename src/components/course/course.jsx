@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Col, Icon, CardTitle } from "react-materialize";
+import { Link } from "react-router-dom";
 
 const Course = ( props ) => (
     <Col
@@ -15,9 +16,9 @@ const Course = ( props ) => (
         title={props.nome}
         >
         <p>
-            <a href="#">
-            This is a link
-            </a>
+            <Link to={`/edit/course/${props.colecaoId}`}>
+                Editar
+            </Link>
         </p>
         </Card>
     </Col>

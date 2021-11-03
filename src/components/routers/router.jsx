@@ -11,6 +11,7 @@ const RouterComponent = () => (
         <Route exact path={Routers.HOME} component={Home} />
         <Route path={Routers.COURSE} component={Courses} />
         <Route path={Routers.CREATE_COURSE} component={FormColecao} />
+        <Route path={Routers.EDIT_COURSE} component={FormColecao} />
         <Route path="*" component={PageNotFoud} />
     </Switch>
 )
